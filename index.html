@@ -15,7 +15,9 @@
 		<link href="css/plugins.css" rel="stylesheet"/>
 		<link href="css/lightbox.min.css" rel="stylesheet"/>
 		<link href="css/responsive.css" rel="stylesheet"/>
-		<link href="css/style.css" rel="stylesheet"/>
+		<link href="main.css" rel="stylesheet"/>
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
 		<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
 		<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
 		<!--[if lt IE 9]>
@@ -32,647 +34,157 @@
 
   gtag('config', 'G-LQJXNCFFMX');
 </script>
-	<body data-spy="scroll" data-offset="80">
-		<!-- START PRELOADER -->
-			<div class="preloader">
-				<div class="spinner">
-					<div class="double-bounce1"></div>
-					<div class="double-bounce2"></div>
-				</div>
-			</div>
-		<!-- END PRELOADER -->
-		
-		<!-- START NAVBAR -->
-			<div class="navbar navbar-default navbar-fixed-top menu-top">
-				<div class="container">
-					<div class="logo">
-						<a href="index2.html" class="navbar-brand"><p>Tristan Lecourtois</p></a>
-						<div class="mobile-nav"></div>
-					</div>
-					
-					<div id="navbar" class="main_menu">
-						<ul class="nav navbar-nav navbar-right">
-							<li><a href="#home">Home</a></li>
-							<li><a href="#about">About</a></li>
-							<li><a href="#service">Skills</a></li>
-							<li><a href="#portfolio">Portfolio</a></li>
-							<li><a href="#resume">Resume</a></li>														
-							<li><a href="#contact">Contact</a></li>
-						</ul>
-					</div> 
-				</div><!--- END CONTAINER -->
-			</div> 
-		<!-- END NAVBAR -->			
-		
-		<!-- START BANNER-SHOW -->
-			<section id="home" class="main_banner banner_bg">
-				<div id="particles-js"></div>
-				<div class="container">
-					<div class="img_present">
-						<img src="images/about.jpeg">
-					  </div>
-					  
-					
-					<div class="row">
-						<div class="col-md-6 col-sm-12 col-xs-12">
-	
-							<div class="banner_content">								
-								<strong>Hello!</strong>
-								<h1 class="cd-headline clip">
-									<span class="fw_600">I Am</span>
-									<span class="cd-words-wrapper">
-										<b class="is-visible fw_300">Tristan Lecourtois</b>
-										<b class="fw_300">a CS MSc student</b>
-										<b class="fw_300">a ML engineer </b>
-										
-									</span>
-								</h1>
-								<p class="except">I'm a student passionate about Python, exploring ML libraries, creating systems with deep neural networks and many more...</p>
-								<div class="banner-btn">
-									<a href="#portfolio" class="banner_btn">See My Portfolio</a>
-								</div>
-						
-							</div>
-						</div>
-						
-					</div>
-				</div>
-			</section>
-		<!-- END BANNER-SHOW -->
-		
-		<!-- START ABOUT -->
-			<section id="about" class="gray_bg section_padding">
-				<div class="container">
-					<div class="single_about">
-						<div class="row">
-							<div class="col-md-6 col-sm-6 col-xs-12">
-								<div class="about_image wow fadeInLeft">
-									<img src="images/IMG_7951.png" alt="about-image" />
-								</div>
-							</div>
-							
-							<div class="col-md-6 col-sm-6 col-xs-12">
-								<div class="about_content_area wow fadeInRight">
-									<h4>Hi, My Name is <span>Tristan Lecourtois</span></h4>					
-									<p>I'm a CS Student with a strong background in Python, TensorFlow, PyTorch, scikit-learn, statistics, and linear algebra. During my studies, I worked on deep learning projects like Text2SQL model or computer vision projects to detect crater on Mars. I'm passionate about AI and want to apply my skills to build innovative products and services.
-									</p>
-									<div class="about_details">
-										<div class="row">
-											<div class="col-md-12">
-												<div class="ct_about">
-												   <span> Name </span> : Tristan Lecourtois											   
-												</div>
-											</div>
-											
-											<div class="col-md-12">
-												<div class="ct_about">
-												   <span> Age </span>
-												   : 21
-												</div>
-											</div>
+<body>
+    <!--[if lt IE 9]><div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</div><![endif]-->
+    <div class="masthead">
+        <div class="masthead__inner-wrap">
+            <div class="masthead__menu">
+                <nav id="site-nav" class="greedy-nav">
+                    <button>
+                        <div class="navicon"></div>
+                    </button>
+                    <ul class="visible-links">
+                        <li class="masthead__menu-item masthead__menu-item--lg">
+                            <a href="https://tristanlecourtois.github.io/">Tristan Lecourtois</a>
+                        </li>
+                        <!-- <li class="masthead__menu-item">
+                            <a href="https://academicpages.github.io/publications/">Publications</a>
+                        </li>
+                        <li class="masthead__menu-item">
+                            <a href="https://academicpages.github.io/talks/">Talks</a>
+                        </li>
+                        <li class="masthead__menu-item">
+                            <a href="https://academicpages.github.io/teaching/">Teaching</a>
+                        </li> -->
+                        <li class="masthead__menu-item">
+                            <a href="https://tristanlecourtois.github.io/portfolio/">Portfolio</a>
+                        </li>
+                        <li class="masthead__menu-item">
+                            <a href="https://tristanlecourtois.github.io/year-archive/">Blog Posts</a>
+                        </li>
+                        <li class="masthead__menu-item">
+                            <a href="images/Resume.pdf"">CV</a>
+                        </li>
+                    </ul>
+                    <ul class="hidden-links hidden"></ul>
+                </nav>
+            </div>
+        </div>
+    </div>
+    <div id="main" role="main">
+        <div class="sidebar sticky">
+            <div itemscope itemtype="http://schema.org/Person">
+                <div class="author__avatar">
+                    <img src="images/about.jpeg" class="author__avatar" alt="Your Sidebar Name">
+                </div>
+                <div class="author__content">
+                    <h3 class="author__name">Tristan Lecourtois</h3>
+                    <p class="author__bio">MSc CS Student @ Mines Saint-Étienne | AI/ML Researcher</p>
+                </div>
+                <div class="author__urls-wrapper">
+                    <button class="btn btn--inverse">Follow</button>
+                    <ul class="author__urls social-icons">
+                        <!-- Font Awesome icons / Biographic information -->
+                        <li class="author__desktop">
+                            <i class="fa-solid fa-location-dot icon-pad-right" aria-hidden="true"></i>
+                            Los Angeles, CA
+                        </li>
+                        <li class="author__desktop">
+                            <i class="fas fa-fw fa-building-columns icon-pad-right" aria-hidden="true"></i>
+                            CalTech - JPL
+                        </li>
+                        <li>
+                            <a href="mailto:tristanlecourtois4@gmail.com">
+                                <i class="fas fa-fw fa-envelope icon-pad-right" aria-hidden="true"></i>
+                                Email
+                            </a>
+                        </li>
+                        <!-- Font Awesome and Academicons icons / Academic websites -->
+                        <!-- <li>
+                            <a href="https://scholar.google.com/citations?user=PS_CX0AAAAAJ">
+                                <i class="ai ai-google-scholar icon-pad-right"></i>
+                                Google Scholar
+                            </a>
+                        </li> -->
+                        <li>
+                            <a href="https://www.linkedin.com/in/tristan-lecourtois-599812268/">
+                                <i class="fab fa-fw fa-linkedin icon-pad-right" aria-hidden="true"></i>
+                                LinkedIn
+                            </a>
+                        </li>
+                        <!-- Font Awesome icons / Repositories and software development -->
+                        <li>
+                            <a href="https://github.com/TristanLecourtois">
+                                <i class="fab fa-fw fa-github icon-pad-right" aria-hidden="true"></i>
+                                GitHub
+                            </a>
+                        </li>
+                        <!-- Font Awesome icons / Social media -->
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <article class="page" itemscope itemtype="http://schema.org/CreativeWork">
+            <meta itemprop="headline" content="Academic Pages is a ready-to-fork GitHub Pages template for academic personal websites">
+            <div class="page__inner-wrap">
+                <header>
+                    <h1 class="page__title" itemprop="headline">About</h1>
+                </header>
+                <section class="page__content" itemprop="text">
+                    <p>
+						I’m currently pursuing a MSc in Computer Science at <a href="https://www.mines-stetienne.fr">Mines Saint-Etienne</a>, 
+focusing on Machine Learning. I have experience as a Machine Learning Research Scientist Intern at Atos, training a text2SQL model and developing RAG for NLP tasks. In the summer, I’ll be joining <a href="https://www.jpl.nasa.gov">NASA Jet Propulsion Laboratory</a> as a Visiting Student Researcher for a stage on the <a href="https://github.com/nasa-jpl/rosa">ROSA</a> project, advancing human-robot interaction through embodied agents and language models.
 
-											<div class="col-md-12">
-												<div class="ct_about">
-												   <span> Study </span>
-												   : Mines de Saint-Etienne
-												</div>
-											</div>
-											
-											<div class="col-md-12">
-												<div class="ct_about">
-												   <span> Address </span>
-												   : France
-												</div>
-											</div>
-											
-											<div class="col-md-12">
-												<div class="ct_about">
-												   <span> Phone Number </span>
-												   : +33 767220870
-												</div>
-											</div>
-											
-											<div class="col-md-12">
-												<div class="ct_about">
-												   <span> Email </span>
-												   <a href="mailto:tristanlecourtois4@gmail.com">: tristanlecourtois4@gmail.com</a>
-												</div>
-											</div>
-											<div class="col-md-12">
-												<div class="ct_about">
-												   <span> Linkedin </span>
-												   : <a href="https://www.linkedin.com/in/tristan-lecourtois-599812268/" target="_blank"> @tristan-lecourtois</a>
-												</div>
-											</div>
-											<div class="col-md-12">
-												<div class="ct_about">
-												   <span> GitHub </span>
-												   : <a href="https://github.com/TristanLecourtois" target="_blank">@tristanlecourtois</a>
-												</div>
-											</div>
-										</div>
-									</div>
-									
-									<a href="images/RESUME.pdf" class="btn btn-default about_btn">Download My Resume</a>
-									
+                    </p>
+                    <h1 id="a-data-driven-personal-website">News</h1>
+					<ul>
+					<li><strong>[2025/04/01]</strong> I joined NASA JPL as a Visiting Researcher, working on ROSA project</li>
+					<li><strong>[2025/02/25]</strong> Publication of my portfolio</li>
+					</ul>
 
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</section>
-		<!-- END ABOUT -->
-		
-		<!-- START SERVICE -->
-		 <section id="service" class="section_padding">
-			<div class="container">
-				<div class="col-md-12 col-sm-12-col-xs-12">
-					<div class="section_heading text-center">
-						<h2>My <span>technical & miscellaneous skills</span></h2>
-						
-					</div>	
-				</div>
-				
-				<div class="row text-center">
-					<div class="col-md-4 col-sm-6 col-xs-12">
-						<div class="single-service wow fadeInLeft">
-							<svg xmlns="http://www.w3.org/2000/svg" height="4em" viewBox="0 0 448 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path d="M439.8 200.5c-7.7-30.9-22.3-54.2-53.4-54.2h-40.1v47.4c0 36.8-31.2 67.8-66.8 67.8H172.7c-29.2 0-53.4 25-53.4 54.3v101.8c0 29 25.2 46 53.4 54.3 33.8 9.9 66.3 11.7 106.8 0 26.9-7.8 53.4-23.5 53.4-54.3v-40.7H226.2v-13.6h160.2c31.1 0 42.6-21.7 53.4-54.2 11.2-33.5 10.7-65.7 0-108.6zM286.2 404c11.1 0 20.1 9.1 20.1 20.3 0 11.3-9 20.4-20.1 20.4-11 0-20.1-9.2-20.1-20.4.1-11.3 9.1-20.3 20.1-20.3zM167.8 248.1h106.8c29.7 0 53.4-24.5 53.4-54.3V91.9c0-29-24.4-50.7-53.4-55.6-35.8-5.9-74.7-5.6-106.8.1-45.2 8-53.4 24.7-53.4 55.6v40.7h106.9v13.6h-147c-31.1 0-58.3 18.7-66.8 54.2-9.8 40.7-10.2 66.1 0 108.6 7.6 31.6 25.7 54.2 56.8 54.2H101v-48.8c0-35.3 30.5-66.4 66.8-66.4zm-6.7-142.6c-11.1 0-20.1-9.1-20.1-20.3.1-11.3 9-20.4 20.1-20.4 11 0 20.1 9.2 20.1 20.4s-9 20.3-20.1 20.3z"/></svg>
-							<h4>Python</h4>
-							<P>Skilled Python programmer leveraging NumPy, Pandas, Matplotlib for data manipulation, analysis, and visualization in data science projects.</P>
-						</div>
-					</div> 
-					<div class="col-md-4 col-sm-6 col-xs-12">
-						<div class="single-service wow fadeInDown">
-							<img  width="60" height="60"src="https://cdn.icon-icons.com/icons2/2389/PNG/512/tensorflow_logo_icon_144808.png"/>
-							<h4>TensorFlow</h4>
-							<P>I have strong grasp of core concepts and can prototype deep learning models like my different projects using this framework.</P>
-						</div>
-					</div> 				
-					<div class="col-md-4 col-sm-6 col-xs-12">
-						<div class="single-service wow fadeInRight">
-							<img width="60" height="60"src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRSa--04SrFD-zc4iceDjyBMdcBb4Ul519LuA&s"/>
-							<h4>PyTorch</h4>
-							<P>Experienced with PyTorch, building and iterating neural networks leveraging key concepts like tensors, autograd, and modules.</P>
-						</div>
-					</div> 
-					<div class="col-md-4 col-sm-6 col-xs-12">
-						<div class="single-service wow fadeInLeft">
-							<img class="svg" src="images/c.png" width="60" height="60">
-							<h4>C and C++</h4>
-							<P>Skilled C and C++ programmer with experience building performant systems and applications using core language features.</P>
-						</div>
-					</div> 
-					<div class="col-md-4 col-sm-6 col-xs-12">
-						<div class="single-service wow fadeInUp">
-							<img class="svg" src="images/git.png" width="60" height="60">
-							<h4>Git</h4>
-
-							<P>I demonstrate strong proficiency in Git and GitHub, facilitating seamless collaboration, and ensuring code integrity through best practices.</P>
-						</div>
-					</div> 
-					<div class="col-md-4 col-sm-6 col-xs-12">
-						<div class="single-service wow fadeInRight">
-							<img class="svg" src="images/scikit.png" width="60" height="60">
-							<h4>Scikit-learn</h4>
-							<P>Experienced with scikit-learn, building machine learning pipelines for data preprocessing, model training, evaluation and deployment.</P>
-						</div>
-					</div> 
-				</div>
-			</div>
-		</section>
-	
-		<!-- END SERVICE -->
-		
-		<!-- START CTA -->
-			<section class="cta_section section_padding">
-				<div class="container">
-					<div class="row">
-						<div class="col-lg-12 text-center">
-							<div class="cta_content">
-								<h3>I am looking for an AI summer 2025 internship !</h3>
-								<a href="#" class="btn btn-default main_btn"><span>Hire Me</span></a>
-							</div>
-						</div>
-					</div>
-				</div>
-			</section>
-        <!-- END CTA -->
-		
-		<!-- START PORTFOLIO -->
-		<section id="portfolio" class="gray_bg section_padding">
-			<div class="container">
-				<div class="col-md-12 col-sm-12 col-xs-12">
-					<div class="section_heading text-center">
-						<h2>My <span>Portfolio</span></h2>
-						<p>Check out my latest projects which tackle deep neural networks, computer vision and NLP</p>
-					</div>
-				</div>
-				<div class="row">
-					<div class="work_filter text-center">
-						<ul>
-							<li class="active" data-filter="*">All</li>
-							<li data-filter=".CV">Computer Vision</li>
-							<li data-filter=".NLP">NLP</li>
-							<li data-filter=".ML">Machine Learning</li>
-							<li data-filter=".Robot">Robotics & Embedded Systems</li>
-						</ul>
-					</div>
-					<div class="work_content_area">
-						<!-- Projet React Column Select -->
-						<a href="https://github.com/TristanLecourtois/mars-crater-detection" target="_blank" rel="noopener noreferrer" class="col-md-4 col-sm-6 col-xs-12 CV">
-							<div class="project-card">
-								<div class="header">
-									<span class="creator">CREATOR</span>
-								</div>
-								<div class="content">
-									<h4><span class="project-author">TristanLecourtois/ </span><span class="project-name">Mars crater detection with YOLOv8</span></h4>
-									<p>This project focuses on implementing YOLO8 to detect craters on Mars</p>
-									<div class="tags">
-										<span class="tag">yolov8</span>
-										<span class="tag">detection</span>
-										<span class="tag">computer vision</span>
-										<svg class="tech-tag" xmlns="http://www.w3.org/2000/svg" height="2em" viewBox="0 0 24 24">
-											<!-- Ajoutez ici le contenu SVG pour le logo Python -->
-											<path d="M439.8 200.5c-7.7-30.9-22.3-54.2-53.4-54.2h-40.1v47.4c0 36.8-31.2 67.8-66.8 67.8H172.7c-29.2 0-53.4 25-53.4 54.3v101.8c0 29 25.2 46 53.4 54.3 33.8 9.9 66.3 11.7 106.8 0 26.9-7.8 53.4-23.5 53.4-54.3v-40.7H226.2v-13.6h160.2c31.1 0 42.6-21.7 53.4-54.2 11.2-33.5 10.7-65.7 0-108.6zM286.2 404c11.1 0 20.1 9.1 20.1 20.3 0 11.3-9 20.4-20.1 20.4-11 0-20.1-9.2-20.1-20.4.1-11.3 9.1-20.3 20.1-20.3zM167.8 248.1h106.8c29.7 0 53.4-24.5 53.4-54.3V91.9c0-29-24.4-50.7-53.4-55.6-35.8-5.9-74.7-5.6-106.8.1-45.2 8-53.4 24.7-53.4 55.6v40.7h106.9v13.6h-147c-31.1 0-58.3 18.7-66.8 54.2-9.8 40.7-10.2 66.1 0 108.6 7.6 31.6 25.7 54.2 56.8 54.2H101v-48.8c0-35.3 30.5-66.4 66.8-66.4zm-6.7-142.6c-11.1 0-20.1-9.1-20.1-20.3.1-11.3 9-20.4 20.1-20.4 11 0 20.1 9.2 20.1 20.4s-9 20.3-20.1 20.3z"/>
-										</svg>
-									</div>
-								</div>
-							</div>
-						</a>
-
-						<a href="https://github.com/TristanLecourtois/endodetect-based-on-symptoms" target="_blank" rel="noopener noreferrer" class="col-md-4 col-sm-6 col-xs-12 ML">
-							<div class="project-card">
-								<div class="header">
-									<span class="creator">CREATOR</span>
-								</div>
-								<div class="content">
-									<h4><span class="project-author">TristanLecourtois/ </span><span class="project-name">ML-endometriosis-detection</span></h4>
-									<p>This project focuses on using machine learning to develop a self-diagnostic endometriosis tool based solely on patient-reported symptoms</p>
-									<div class="tags">
-										<span class="tag">python</span>
-										<span class="tag">random-forest</span>
-										<span class="tag">symptoms</span>
-										<svg class="tech-tag" xmlns="http://www.w3.org/2000/svg" height="2em" viewBox="0 0 24 24">
-											<!-- Ajoutez ici le contenu SVG pour le logo Python -->
-											<path d="M439.8 200.5c-7.7-30.9-22.3-54.2-53.4-54.2h-40.1v47.4c0 36.8-31.2 67.8-66.8 67.8H172.7c-29.2 0-53.4 25-53.4 54.3v101.8c0 29 25.2 46 53.4 54.3 33.8 9.9 66.3 11.7 106.8 0 26.9-7.8 53.4-23.5 53.4-54.3v-40.7H226.2v-13.6h160.2c31.1 0 42.6-21.7 53.4-54.2 11.2-33.5 10.7-65.7 0-108.6zM286.2 404c11.1 0 20.1 9.1 20.1 20.3 0 11.3-9 20.4-20.1 20.4-11 0-20.1-9.2-20.1-20.4.1-11.3 9.1-20.3 20.1-20.3zM167.8 248.1h106.8c29.7 0 53.4-24.5 53.4-54.3V91.9c0-29-24.4-50.7-53.4-55.6-35.8-5.9-74.7-5.6-106.8.1-45.2 8-53.4 24.7-53.4 55.6v40.7h106.9v13.6h-147c-31.1 0-58.3 18.7-66.8 54.2-9.8 40.7-10.2 66.1 0 108.6 7.6 31.6 25.7 54.2 56.8 54.2H101v-48.8c0-35.3 30.5-66.4 66.8-66.4zm-6.7-142.6c-11.1 0-20.1-9.1-20.1-20.3.1-11.3 9-20.4 20.1-20.4 11 0 20.1 9.2 20.1 20.4s-9 20.3-20.1 20.3z"/>
-										</svg>
-									</div>
-								</div>
-							</div>
-						</a>
-		
-						<!-- Projet Astrofox -->
-						<a href="https://github.com/TristanLecourtois/NL2SQL" target="_blank" rel="noopener noreferrer" class="col-md-4 col-sm-6 col-xs-12 NLP">
-							<div class="project-card">
-								<div class="header">
-									<span class="creator">CREATOR</span>
-								</div>
-								<div class="content">
-									<h4><span class="project-author">TristanLecourtois/ </span><span class="project-name">NL2SQL</span></h4>
-									<p>Text-2-SQL model for instruction-based generation of SQL code from natural language queries with Llama2 and sqlcoder-34b-alpha</p>
-									<div class="tags">
-										<span class="tag">langchain</span>
-										<span class="tag">sqlcoder</span>
-										<span class="tag">llama-2</span>
-										<svg class="tech-tag" xmlns="http://www.w3.org/2000/svg" height="2em" viewBox="0 0 24 24">
-											<!-- Ajoutez ici le contenu SVG pour le logo Python -->
-											<path d="M439.8 200.5c-7.7-30.9-22.3-54.2-53.4-54.2h-40.1v47.4c0 36.8-31.2 67.8-66.8 67.8H172.7c-29.2 0-53.4 25-53.4 54.3v101.8c0 29 25.2 46 53.4 54.3 33.8 9.9 66.3 11.7 106.8 0 26.9-7.8 53.4-23.5 53.4-54.3v-40.7H226.2v-13.6h160.2c31.1 0 42.6-21.7 53.4-54.2 11.2-33.5 10.7-65.7 0-108.6zM286.2 404c11.1 0 20.1 9.1 20.1 20.3 0 11.3-9 20.4-20.1 20.4-11 0-20.1-9.2-20.1-20.4.1-11.3 9.1-20.3 20.1-20.3zM167.8 248.1h106.8c29.7 0 53.4-24.5 53.4-54.3V91.9c0-29-24.4-50.7-53.4-55.6-35.8-5.9-74.7-5.6-106.8.1-45.2 8-53.4 24.7-53.4 55.6v40.7h106.9v13.6h-147c-31.1 0-58.3 18.7-66.8 54.2-9.8 40.7-10.2 66.1 0 108.6 7.6 31.6 25.7 54.2 56.8 54.2H101v-48.8c0-35.3 30.5-66.4 66.8-66.4zm-6.7-142.6c-11.1 0-20.1-9.1-20.1-20.3.1-11.3 9-20.4 20.1-20.4 11 0 20.1 9.2 20.1 20.4s-9 20.3-20.1 20.3z"/>
-										</svg>
-									</div>
-								</div>
-							</div>
-						</a>
-		
-						<!-- Projet Character-based LLM -->
-						<a href="https://github.com/TristanLecourtois/Character-based-LLM" target="_blank" rel="noopener noreferrer" class="col-md-4 col-sm-6 col-xs-12 NLP">
-							<div class="project-card">
-								<div class="header">
-									<span class="creator">CREATOR</span>
-								</div>
-								<div class="content">
-									<h4><span class="project-author">TristanLecourtois/ </span><span class="project-name">Character-based-LLM</span></h4>
-									<p>This project focuses on a language model trained on a dataset comprising the works of Shakespeare, using the Transformer framework and PyTorch.</p>
-									<div class="tags">
-										<span class="tag">pytorch</span>
-										<span class="tag">transformers</span>
-										<span class="tag">shakespeare</span>
-										<svg class="tech-tag" xmlns="http://www.w3.org/2000/svg" height="2em" viewBox="0 0 24 24">
-											<!-- Ajoutez ici le contenu SVG pour le logo Python -->
-											<path d="M439.8 200.5c-7.7-30.9-22.3-54.2-53.4-54.2h-40.1v47.4c0 36.8-31.2 67.8-66.8 67.8H172.7c-29.2 0-53.4 25-53.4 54.3v101.8c0 29 25.2 46 53.4 54.3 33.8 9.9 66.3 11.7 106.8 0 26.9-7.8 53.4-23.5 53.4-54.3v-40.7H226.2v-13.6h160.2c31.1 0 42.6-21.7 53.4-54.2 11.2-33.5 10.7-65.7 0-108.6zM286.2 404c11.1 0 20.1 9.1 20.1 20.3 0 11.3-9 20.4-20.1 20.4-11 0-20.1-9.2-20.1-20.4.1-11.3 9.1-20.3 20.1-20.3zM167.8 248.1h106.8c29.7 0 53.4-24.5 53.4-54.3V91.9c0-29-24.4-50.7-53.4-55.6-35.8-5.9-74.7-5.6-106.8.1-45.2 8-53.4 24.7-53.4 55.6v40.7h106.9v13.6h-147c-31.1 0-58.3 18.7-66.8 54.2-9.8 40.7-10.2 66.1 0 108.6 7.6 31.6 25.7 54.2 56.8 54.2H101v-48.8c0-35.3 30.5-66.4 66.8-66.4zm-6.7-142.6c-11.1 0-20.1-9.1-20.1-20.3.1-11.3 9-20.4 20.1-20.4 11 0 20.1 9.2 20.1 20.4s-9 20.3-20.1 20.3z"/>
-										</svg>
-									</div>
-								</div>
-							</div>
-						</a>
-						<a href="https://github.com/TristanLecourtois/ASCON128" target="_blank" rel="noopener noreferrer" class="col-md-4 col-sm-6 col-xs-12 Robot">
-							<div class="project-card">
-								<div class="header">
-									<span class="creator">CREATOR</span>
-								</div>
-								<div class="content">
-									<h4><span class="project-author">TristanLecourtois/ </span><span class="project-name">ASCON128</span></h4>
-									<p>Simplified version of the hardware implementation of ASCON128 encryption algorithm coded in SystemVerilog</p>
-									<div class="tags">
-										<span class="tag">system verilog</span>
-										<span class="tag">cryptography</span>
-										<span class="tag">hardware</span>
-										<svg class="tech-tag" xmlns="http://www.w3.org/2000/svg" height="2em" viewBox="0 0 24 24">
-											<!-- Ajoutez ici le contenu SVG pour le logo Python -->
-											<path d="M439.8 200.5c-7.7-30.9-22.3-54.2-53.4-54.2h-40.1v47.4c0 36.8-31.2 67.8-66.8 67.8H172.7c-29.2 0-53.4 25-53.4 54.3v101.8c0 29 25.2 46 53.4 54.3 33.8 9.9 66.3 11.7 106.8 0 26.9-7.8 53.4-23.5 53.4-54.3v-40.7H226.2v-13.6h160.2c31.1 0 42.6-21.7 53.4-54.2 11.2-33.5 10.7-65.7 0-108.6zM286.2 404c11.1 0 20.1 9.1 20.1 20.3 0 11.3-9 20.4-20.1 20.4-11 0-20.1-9.2-20.1-20.4.1-11.3 9.1-20.3 20.1-20.3zM167.8 248.1h106.8c29.7 0 53.4-24.5 53.4-54.3V91.9c0-29-24.4-50.7-53.4-55.6-35.8-5.9-74.7-5.6-106.8.1-45.2 8-53.4 24.7-53.4 55.6v40.7h106.9v13.6h-147c-31.1 0-58.3 18.7-66.8 54.2-9.8 40.7-10.2 66.1 0 108.6 7.6 31.6 25.7 54.2 56.8 54.2H101v-48.8c0-35.3 30.5-66.4 66.8-66.4zm-6.7-142.6c-11.1 0-20.1-9.1-20.1-20.3.1-11.3 9-20.4 20.1-20.4 11 0 20.1 9.2 20.1 20.4s-9 20.3-20.1 20.3z"/>
-										</svg>
-									</div>
-								</div>
-							</div>
-						</a>
-
-
-						<a href="https://github.com/TristanLecourtois/Travelling-salesman-problem" target="_blank" rel="noopener noreferrer" class="col-md-4 col-sm-6 col-xs-12 ML">
-							<div class="project-card">
-								<div class="header">
-									<span class="creator">CREATOR</span>
-								</div>
-								<div class="content">
-									<h4><span class="project-author">TristanLecourtois/ </span><span class="project-name">Travelling-salesman-problem</span></h4>
-									<p>Study and comparison of approximate solution methods, with proposal of a metaheuristic based on swarm intelligence </p>
-									<div class="tags">
-										<span class="tag">metaheuristic</span>
-										<span class="tag">2-opt</span>
-										<span class="tag">nearest_neighbor</span>
-										<svg class="tech-tag" xmlns="http://www.w3.org/2000/svg" height="2em" viewBox="0 0 24 24">
-											<!-- Ajoutez ici le contenu SVG pour le logo Python -->
-											<path d="M439.8 200.5c-7.7-30.9-22.3-54.2-53.4-54.2h-40.1v47.4c0 36.8-31.2 67.8-66.8 67.8H172.7c-29.2 0-53.4 25-53.4 54.3v101.8c0 29 25.2 46 53.4 54.3 33.8 9.9 66.3 11.7 106.8 0 26.9-7.8 53.4-23.5 53.4-54.3v-40.7H226.2v-13.6h160.2c31.1 0 42.6-21.7 53.4-54.2 11.2-33.5 10.7-65.7 0-108.6zM286.2 404c11.1 0 20.1 9.1 20.1 20.3 0 11.3-9 20.4-20.1 20.4-11 0-20.1-9.2-20.1-20.4.1-11.3 9.1-20.3 20.1-20.3zM167.8 248.1h106.8c29.7 0 53.4-24.5 53.4-54.3V91.9c0-29-24.4-50.7-53.4-55.6-35.8-5.9-74.7-5.6-106.8.1-45.2 8-53.4 24.7-53.4 55.6v40.7h106.9v13.6h-147c-31.1 0-58.3 18.7-66.8 54.2-9.8 40.7-10.2 66.1 0 108.6 7.6 31.6 25.7 54.2 56.8 54.2H101v-48.8c0-35.3 30.5-66.4 66.8-66.4zm-6.7-142.6c-11.1 0-20.1-9.1-20.1-20.3.1-11.3 9-20.4 20.1-20.4 11 0 20.1 9.2 20.1 20.4s-9 20.3-20.1 20.3z"/>
-										</svg>
-									</div>
-								</div>
-							</div>
-						</a>
-					</div>
-				</div>
-			</div>
-		</section>
-		
-		
-		
-		
-		
-		<!-- END PORTFOLIO -->
-			
-		<!-- START COUNTER -->
-		    <section id="counter_area" class="section_padding">
-				<div class="container">
-					<div class="row text-center">
-					
-						<div class="col-md-3 col-sm-6 col-xs-12">
-							<div class="single_counter">							    
-								<span class="counter">6</span><span>+</span>
-							    <h5>Successul Projects</h5>
-							</div>
-						</div> 
-						
-						<div class="col-md-3 col-sm-6 col-xs-12">
-							<div class="single_counter">								
-								<span class="counter">90%</span><span>%</span>
-								<h5>Accuracy Text2SQL created through transformer-based architecture.</h5>
-							</div>
-						</div>
-						
-						<div class="col-md-3 col-sm-6 col-xs-12">
-							<div class="single_counter">							    
-								<span class="counter">3</span>
-								<h5>Certifications</h5>
-							</div>
-						</div> 
-						
-						<div class="col-md-3 col-sm-6 col-xs-12">
-							<div class="single_counter border_left">							   
-								<span class="counter">4</span>
-								<h5>Librairies</h5>
-							</div>
-						</div>
-					</div>
-				</div>
-			</section>
-		<!-- END COUNTER -->
-		
-		<!-- START RESUM -->	
-			<section id="resume" class="gray_bg section_padding">
-				<div class="container">
-					<div class="row">
-						<div class="col-md-6 col-sm-12 col-xs-12">
-							<div class="education-container wow fadeInLeft">
-								<ul class="edu-list">
-									<li>										
-										<h5>MS's in CS delivered by Mines de Saint-Etienne, France</h5>
-										<strong>2023 - 2026</strong>
-										<p>Ranked among the top 10 graduate schools of engineering in France for academic excellence known for theoretical and applied computer science training in order to gain strong skills in programming, algorithms, AI, big data, and software engineering.</p>
-									</li>
-									<li>										
-										<h5>French "Classes Préparatoires", France</h5>
-										<strong>2021 - 2023</strong>
-										<p>An intensive, demanding two-year course aimed at excellence, developing the rigor and organizational skills needed to enter France's top engineering schools by combining mathematics, physics and computer science.</p>
-									</li>
-									<li>										
-										<h5>High-School diploma, France</h5>
-										<strong>2018 - 2021</strong>
-										<p>I completed a European baccalaureate with advanced courses in mathematics, physics, and engineering science. The program's rigor and international focus developed my quantitative skills and ability to communicate across cultures.</p>
-									</li>
-								</ul>
-							</div>
-						</div>
-						
-						<div class="col-md-6 col-sm-12 col-xs-12">
-							<div class="education-container wow fadeInRight">
-								<ul class="edu-list experience">
-									
-									<li>									
-										<h5>Machine Learning Research Scientist Intern, Airbus, France</h5>
-										<strong>Summer 2024</strong>
-										<p> Reduced by 18% the maintenance time of 2 machines in the manufacturing shop floor where aircraft electronic boards are assembled by programming data mining scripts in Python to anticipate the drifts responsible for quality problems.</p>
-									</li>
-									<li>										
-										<h5>NLP Research Internship at Atos, France</h5>
-										<strong>January 2024</strong>
-										<p>Explored open-source Foundation models and employed HuggingFace’s transformers for NLP tasks. Training a text2SQL model with Langchain and Ollama for query generation to achieve a 90% execution accuracy</p>
-									</li>
-									<li>										
-										<h5>Internship at FEV</h5>
-										<strong>January 2017</strong>
-										<p>Working in the Systems Optimization department,
-											which specializes in powertrain development, I learned
-											about engine dynos and the digital simulation processes
-											used to improve the efficiency of internal combustion
-											engines.</p>
-									</li>
-								</ul>
-							</div>
-						</div>
-					</div>
-				</div>
-			</section>
-		<!-- END RESUM -->
-
-			<section id="blog" class="section_padding">
-				<div class="container">
-					<div class="row">
-						<div class="col-md-12 col-sm-12-col-xs-12">
-							<div class="section_heading text-center">
-								<h2>Skills Cultivation</h2>
-								
-								<div class="sm_border"></div>
-							</div>	
-						</div>	
-						
-						<div class="blog_slide_area">
-							<div class="col-md-4 col-sm-6 col-xs-12">
-								<div class="single_blog wow fadeInLeft">
-									<div class="blog-thumb">
-										<div class="blog-image" >
-											<img src="images/blog/1.png"  alt="https://www.kaggle.com/learn/certification/lecourtoistristan/intro-to-deep-learning" 
-										 />
-										   <a width="1em" href="https://www.kaggle.com/learn/certification/lecourtoistristan/intro-to-deep-learning">
-											</a>
-										</div>
-									
-										<div class="blog-info">
-											<small><i class="fa fa-clock-o"></i>October 29, 2023</small>
-											<span>| Kaggle</span>
-											<a href="https://www.kaggle.com/learn/certification/lecourtoistristan/intro-to-deep-learning"><h4>Deep learning</h4></a>																						
-											<p>
-					
-												Exploring TensorFlow, Keras, CNNs, and RNNs, this course immerses learners in fundamental principles, providing actionable guidance for constructing neural networks through hands-on experience.</p>
-											
-										</div>
-									</div>
-								</div>
-							</div>
-			
-							<div class="col-md-4 col-sm-6 col-xs-12">
-								<div class="single_blog wow fadeInUp">
-									<div class="blog-thumb">
-										<div class="blog-image">
-										   <a href="https://pll.harvard.edu/course/cs50s-introduction-artificial-intelligence-python"><img src="images/blog/2.png"  alt=""></a>
-										</div>
-										<div class="blog-info">
-											<small><i class="fa fa-clock-o"></i>July 31, 2022</small>
-											<span>| Harvard</span>
-											<a href="https://pll.harvard.edu/course/cs50s-introduction-artificial-intelligence-python"><h4>CS50’s Introduction to AI</h4></a>																						
-											<p>Explore the concepts and algorithms at the foundation of modern AI, diving into the ideas that give rise to technologies like game-playing engines, handwriting recognition, and machine translation.</p>
-											
-										</div>
-									</div>
-								</div>
-							</div>
-							
-							<div class="col-md-4 col-sm-6 col-xs-12">
-								<div class="single_blog wow fadeInRight">
-									<div class="blog-thumb">
-										<div class="blog-image">
-										   <a href="https://www.deeplearning.ai/courses/generative-ai-with-llms/"><img src="images/andrewnj.png"  alt=""></a>
-										</div>
-										<div class="blog-info">
-											<small><i class="fa fa-clock-o"></i>November 2023</small>
-											<span>| DeepLearning.AI</span>
-											<a href="https://www.deeplearning.ai/courses/generative-ai-with-llms/"><h4>Generative AI with LLM</h4></a>																						
-											<p>This generative AI course focuses on transformer-based large language models. It explains self-attention in transformers and how they are pre-trained on massive text data.</p>
-											
-										</div>
-									</div>
-								</div>
-							</div>	
-						</div>
-					</div>
-				</div>
-			</section>
-		 
-		
-		<!-- START CONTACT -->
-			<section id="contact" class="gray_bg section_padding">
-				<div class="container">
-					<div class="col-md-12 col-sm-12-col-xs-12">
-						<div class="section_heading text-center">
-							<h2>Contact </h2>
-							<div class="social-icons">
-
-								<a href="https://www.facebook.com/yourpage">
-								  <img src="images/facebook.png" >
-								</a>
-							  
-								<a href="https://www.linkedin.com/in/tristan-lecourtois-599812268/">  
-								  <img src="images/linkedin.png" >
-								</a>
-							  
-								<a href="https://github.com/TristanLecourtois">
-								  <img src="images/github.png" >
-								</a>
-							  
-								<a href="https://www.instagram.com/tristan_lcts/">
-								  <img src="images/instagram.png" >
-								</a>
-							  
-							  </div>
-						</div>	
-					</div>	
-					
-					<div class="row">						
-						<div class="col-md-12 col-sm-12">
-							<form class="form" name="enq" method="post" action="contact.php" onsubmit="return validation();">
-								<div class="row">
-									<div class="input_padding text-center">
-										<div class="form-group col-sm-12">
-											<input type="text" name="name" class="form-control" placeholder="Name" required="required">
-										</div>
-										<div class="form-group col-sm-6">
-											<input type="email" name="email" class="form-control" placeholder="Email" required="required">
-										</div>
-										<div class="form-group col-sm-6">
-											<input type="text" name="subject" class="form-control" placeholder="Subject" required="required">
-										</div>
-										<div class="form-group col-sm-12 mab-none">
-											<textarea rows="6" name="message" class="form-control" placeholder="Your Message" required="required"></textarea>
-										</div>
-										<div class="form-group mb0 col-sm-12">
-											<div class="actions">
-												<button type="submit" value="Send message" name="submit" id="submitButton" class="btn btn-default contact_btn" title="Submit Your Message!">Send Message</button>
-											</div>
-										</div>
-									</div>
-								</div>
-							</form>
-						</div>						
-					</div>
-				</div>
-			</section>
-		<!-- END CONTACT -->
-		
-		<!-- START FOOTER -->
-			<div class="footer">
-				<div class="container">					
-					<div class="copy-text text-center">
-						<p>Copyright © 2024 Tristan Lecourtois | All Rights Reserved</p>
-					</div>											
-				</div>						
-			</div>	
-		<!-- END FOOTER -->
-		
-		<!-- Start jQuery -->
-			<script src="js/jquery.min.js"></script>
-			<script src="js/bootstrap.min.js"></script>
-			<script src="js/owl.carousel.min.js"></script>
-			<script src="js/modernizr-2.8.3.min.js"></script>
-			<script src="js/jquery.nav.js"></script>
-			<script src="js/jquery.inview.min.js"></script>
-			<script src="js/isotope.pkgd.min.js"></script>
-			<script src="js/animated-headline.js"></script>
-			<script src="js/particles.min.js"></script>
-			<script src="js/app.js"></script>
-			<script src="js/lightbox.min.js"></script>
-			<script src="js/slick-nav.js"></script>
-			<script src="js/form-contact.js"></script>
-			<script src="js/scrolltopcontrol.js"></script>
-			<script src="js/wow.min.js"></script>
-			<script src="js/main.js"></script>
-		<!-- End jQuery -->
-		
-	</body>
-</html>		
+                    
+                </section>
+                <footer class="page__meta"></footer>
+            </div>
+        </article>
+    </div>
+    <div class="page__footer">
+        <footer>
+            <!-- start custom footer snippets -->
+            <a href="/sitemap/">Sitemap</a>
+            <!-- end custom footer snippets -->
+            <div class="page__footer-follow">
+                <ul class="social-icons">
+                    <li>
+                        <strong>Follow:</strong>
+                    </li>
+                    <li>
+                        <a href="http://github.com/academicpages">
+                            <i class="fab fa-github" aria-hidden="true"></i>
+                             GitHub
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://academicpages.github.io/feed.xml">
+                            <i class="fa fa-fw fa-rss-square" aria-hidden="true"></i>
+                             Feed
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <div class="page__footer-copyright">
+                 &copy; 2025 Tristan Lecourtois, Powered by 
+                <a href="http://jekyllrb.com" rel="nofollow">Jekyll</a>
+                 &amp; 
+                <a href="https://github.com/academicpages/academicpages.github.io">AcademicPages</a>
+                , a fork of 
+                <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>
+                .
+                <br/>
+                 Site last updated 2025-02-25
+            </div>
+        </footer>
+    </div>
+    <script src="https://academicpages.github.io/assets/js/main.min.js"></script>
+</body>
+</html>
