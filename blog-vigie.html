@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Building Vigie — a world-model safety watchdog for robots — Tristan Lecourtois</title>
+  <link rel="icon" type="image/png" href="images/favicon.png">
+  <link rel="stylesheet" href="main.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- MathJax for the equations in the world-model section -->
+  <script>
+    window.MathJax = {
+      tex: { inlineMath: [['\\(', '\\)']], displayMath: [['\\[', '\\]'], ['$$', '$$']] },
+      options: { skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'] }
+    };
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" async></script>
+</head>
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-LQJXNCFFMX"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-LQJXNCFFMX');
+</script>
+
+<body>
+
+  <!-- ===== Navbar ===== -->
+  <nav class="navbar">
+    <a href="index.html" class="navbar-brand">Tristan Lecourtois</a>
+    <button class="navbar-toggle" aria-label="Toggle navigation" onclick="document.querySelector('.navbar-nav').classList.toggle('open')">
+      <span></span><span></span><span></span>
+    </button>
+    <ul class="navbar-nav">
+      <li><a href="index.html">About</a></li>
+      <li><a href="portfolio.html">Research</a></li>
+      <li><a href="blog.html" class="active">Blog</a></li>
+      <li><a href="images/Resume.pdf" target="_blank">CV</a></li>
+    </ul>
+  </nav>
+
+  <!-- ===== Main content ===== -->
+  <main class="page-content">
+    <article class="post-article">
+
+      <a href="blog.html" class="post-back">← All posts</a>
+
+      <header class="post-header">
+        <h1 class="post-title">
+          Predicting danger before it happens: building Vigie, a world-model safety watchdog for robots
+        </h1>
+        <div class="post-meta">Published on June 28, 2026 · ~12 min read</div>
+      </header>
+
+      <div class="post-content">
+
+        <div class="post-award">
+          <span class="trophy">🏆</span>
+          <span>
+            <strong>Vigie won the 1st Global Prize at the YC Paris × Unaite Hackathon</strong>
+            (“Paris Builds”, 28 June 2026) — sponsored by Y Combinator, Anthropic, QRT and Hugging Face.
+            This post is the technical story of what we built in ~36 hours.
+          </span>
+        </div>
+
+        <div class="post-tldr">
+          <div class="tldr-label">TL;DR</div>
+          <ul>
+            <li><strong>Problem.</strong> Learning-based robot policies are opaque black boxes; you can't
+              certify their weights, and a reactive safety layer that fires <em>after</em> contact is just an
+              incident report.</li>
+            <li><strong>Vigie.</strong> An <strong>external, embodiment-agnostic</strong> watchdog that watches
+              any robot through ordinary cameras and <strong>predicts danger before it happens</strong> — it
+              treats the robot as a black box and judges only observed behavior.</li>
+            <li><strong>Key idea.</strong> Couple a <strong>VLA</strong> (semantics / common sense — <em>“a
+              knife is dangerous”</em>) with a <strong>world model</strong> (physics — <em>how the scene will
+              evolve</em>). The fused verdict combines a semantic danger term \(d_{\text{sem}}\) and a
+              physical surprise term \(s_{\text{phys}}\).</li>
+            <li><strong>Substrate.</strong> Both condition on a fast geometric layer: open-vocab segmentation
+              (YOLOE) + Segment Anything + MediaPipe with <strong>PCA blade-geometry</strong> → a
+              deterministic <strong>&lt;100&nbsp;ms reflex layer</strong>.</li>
+            <li><strong>World model.</strong> <strong>LeWorldModel (LeWM)</strong>, the latest JEPA from
+              LeCun et al. (2026): ~15M params, end-to-end from pixels with a single Gaussian regularizer,
+              plans ~48× faster than foundation-model world models, and its own <em>surprise</em> signal is
+              the physical danger detector — <em>danger is surprise</em>.</li>
+            <li><strong>Result.</strong> 🏆 1st Global Prize at the YC Paris × Unaite Hackathon, in ~36 hours.</li>
+          </ul>
+        </div>
+
+        <p class="post-lead">
+          Learning-based robots are about to enter our homes. Imitation-learned and RL policies are
+          astonishingly capable — and fundamentally opaque. They are black boxes that can fail in ways
+          nobody wrote down, and “trust the policy” is not a safety strategy you can sell to an insurer.
+          Our bet at the hackathon was simple: don't try to verify the robot's weights. Instead, put an
+          <strong>independent, external observer</strong> next to it, watch what it actually does through
+          ordinary cameras, and <strong>predict dangerous outcomes before they happen</strong>. We called
+          it <strong>Vigie</strong> — the world-model safety watchdog for <em>any</em> robot.
+        </p>
+
+        <h2>The thesis: measure behavior, don't trust intent</h2>
+
+        <p>
+          Most “robot safety” either lives inside the policy (a reward term, a constraint in the planner)
+          or relies on hard-coded geometric fences. Both break the moment the robot does something the
+          designers didn't anticipate — which is exactly the regime learning-based control lives in. We
+          took the opposite stance, which we framed as the <em>“crash-test / SOC 2 for robotic safety”</em>
+          view:
+        </p>
+
+        <ul>
+          <li><strong>Empirical, not simulated.</strong> Every judgment comes from the real camera feed.</li>
+          <li><strong>External and embodiment-agnostic.</strong> Vigie doesn't need the robot's model, its
+            action stream, or its intentions. It observes the scene the way a supervisor standing in the
+            room would — so the same watchdog wraps an arm, a humanoid, or a desktop robot.</li>
+          <li><strong>Predictive, not reactive.</strong> A safety layer that fires <em>after</em> contact is
+            an incident report. We wanted to imagine the near future and veto danger <em>before</em> it
+            materialises.</li>
+        </ul>
+
+        <p>
+          We anchored the first demo in the kitchen — roughly 47% of household injuries happen there — with
+          two OpenArm arms manipulating knives, a can, a cup and vegetables on a worktop.
+        </p>
+
+        <h2>The core idea: couple a VLA with a world model</h2>
+
+        <p>
+          A watchdog has to answer two orthogonal questions, and no single model answers both well:
+        </p>
+
+        <ul>
+          <li><strong>What is dangerous?</strong> — <em>semantic, common-sense knowledge.</em> That a blade
+            is sharp, that a hand next to it is at risk, that boiling water burns. This is world
+            <em>knowledge</em>, and it is exactly what a <strong>VLA (Vision-Language-Action) model</strong>
+            supplies: an open-vocabulary, common-sense prior over objects, affordances and hazards.</li>
+          <li><strong>What will happen next?</strong> — <em>physical prediction.</em> How the scene evolves
+            under the robot's motion: will that trajectory carry the gripper into the hand? This is
+            dynamics, and it is what a <strong>world model</strong> provides.</li>
+        </ul>
+
+        <p>
+          Vigie's contribution is to <strong>couple the two</strong>. The VLA grounds the scene semantically
+          (<em>“this is a knife, aimed at a hand — dangerous”</em>); the world model rolls the scene forward
+          in latent space and flags physically implausible or surprising futures. Semantics without
+          prediction is blind to <em>when</em>; prediction without semantics is blind to <em>what
+          matters</em>. The verdict is a fusion of a semantic danger term and a physical surprise term:
+        </p>
+
+        <p>
+          \[ \text{danger}(t) \;=\; \Phi\big(\, \underbrace{d_{\text{sem}}}_{\text{VLA — common sense}},\;
+          \underbrace{s_{\text{phys}}}_{\text{world model — physics}} \,\big) \]
+        </p>
+
+        <h2>Architecture: fusing the two tracks with a fast geometric substrate</h2>
+
+        <p>
+          Underneath the VLA and the world model sits a fast geometric layer that both of them condition on,
+          because safety questions live at very different timescales. “Is a blade tip about to touch a
+          finger?” needs a sub-100&nbsp;ms reflex; “is this whole scene subtly unsafe?” can afford a second
+          or two. So Vigie runs each component at its natural cadence and fuses them into one verdict.
+        </p>
+
+        <figure class="post-figure">
+          <img src="images/vigie/vigie-architecture.png" alt="Vigie architecture — text + image inputs, off-the-shelf robot, watchdog world model predicting next states and raising alerts">
+          <figcaption>
+            The watchdog sits <em>beside</em> the robot: it reads the same scene, predicts the next states,
+            and raises an alert back to the robot when a predicted future looks unsafe — with no access to
+            the robot's own model.
+          </figcaption>
+        </figure>
+
+        <h2>Layer 1 — Perception with fine geometry</h2>
+
+        <p>
+          A bounding box is not enough for safety. A box around a knife can't tell you <em>which way the
+          blade points</em>, and “knife near hand” is a very different situation from “knife tip aimed at a
+          finger.” So the perception layer recovers precise geometry:
+        </p>
+
+        <ul>
+          <li><strong>Open-vocabulary segmentation (YOLOE).</strong> Instead of a fixed COCO class list, we
+            describe hazards in plain words — <code>knife</code>, <code>cleaver</code>, <code>flame</code>,
+            <code>boiling water</code>, <code>hand</code>, <code>child</code>, <code>robot gripper</code>… —
+            and YOLOE segments and classifies whatever we prompt. Adding a new hazard is literally adding a
+            word to a list.</li>
+          <li><strong>Hand landmarks (MediaPipe).</strong> 21 landmarks give us real fingertips, not just a
+            person box — the difference between a coarse proximity heuristic and precise tip-to-finger
+            distances.</li>
+          <li><strong>Blade orientation via PCA.</strong> The segmentation mask of a knife is a long, thin
+            blob, so its <em>first principal component</em> is the blade axis and the extreme points along
+            it are the tip and the handle. From the mask we recover the tip location, the pointing
+            direction, and can finally ask the question safety actually cares about: <em>is the tip close
+            to, and pointed at, a hand?</em></li>
+        </ul>
+
+        <figure class="post-figure">
+          <img src="images/vigie/vigie-harness.gif" alt="Vigie live watchdog overlay on a top-down dual-arm kitchen scene, showing a SAFE verdict badge">
+          <figcaption>
+            The live watchdog running on the OpenArm workspace — open-vocab segmentation, hand tracking and
+            blade geometry fused into a single real-time verdict badge.
+          </figcaption>
+        </figure>
+
+        <h2>Layer 1.5 — A deterministic reflex layer</h2>
+
+        <p>
+          On top of that geometry sits a small, fully deterministic rule engine — the fast reflexes that
+          run every frame in well under 100&nbsp;ms. These are the high-frequency hazards where sub-second
+          reaction matters, and where you want a rule you can explain to an auditor, not a neural net:
+        </p>
+
+        <pre><code># src/config.py — the thresholds are the demo
+blade_tip_to_hand_px = 90.0   # tip this close to a fingertip -> danger
+blade_aim_angle_deg  = 30.0   # blade axis vs tip->hand vector; small = aimed straight at
+object_to_hot_px     = 90.0   # object approaching a hot zone (stove/oven)
+fragile_speed_px     = 45.0   # fragile object moved this fast -> drop/shatter risk</code></pre>
+
+        <p>
+          Each rule is a cheap geometric predicate over the fine perception output: blade-tip → nearest
+          fingertip distance, blade <em>aim</em> angle (is it pointing <em>at</em> the hand?), fragile
+          object fast-motion, object near a hot zone. If any fires, we escalate immediately — no waiting on
+          a model call.
+        </p>
+
+        <h2>The semantic track — a VLA for common-sense danger</h2>
+
+        <p>
+          Rules are precise but literal; they only catch hazards we thought to encode. The <strong>VLA
+          track</strong> supplies the open-ended common-sense knowledge — <em>a knife is sharp, a child in
+          the workspace is at risk, a tipping pot will scald</em> — that no fixed rule set enumerates. Built
+          on Claude vision, it sees the annotated frame <em>plus</em> the geometric facts we already
+          computed, and returns a structured verdict (the semantic danger term \(d_{\text{sem}}\)):
+        </p>
+
+        <pre><code>VERDICT_SCHEMA = {
+  "dangerous": bool,
+  "severity":  "none" | "low" | "warning" | "critical",
+  "category":  str,     # open-vocabulary hazard type
+  "rationale": str,     # plain-language reason — the audit-log artifact
+  "recommended_action": "none" | "monitor" | "slow_down" | "stop",
+}</code></pre>
+
+        <p>
+          Two design choices mattered here. First, <strong>structured outputs</strong>: by constraining the
+          model to this JSON schema we always get a machine-usable verdict, and the <code>rationale</code>
+          field is exactly the human-readable artifact an insurer or a safety audit wants. Second,
+          <strong>cadence</strong>: a vision API call takes 1–4&nbsp;s, so it can't run at 30&nbsp;fps — and
+          we didn't pretend otherwise. The reflex layer gives instant reactions; the VLM runs
+          <em>asynchronously</em> in the background (~1.5&nbsp;s cadence) so it never stalls the loop, and
+          the overlay always shows its latest verdict. Being an independent external observer, its system
+          prompt is explicit: <em>do not trust what the robot intends — judge only the observed scene.</em>
+        </p>
+
+        <h2>The world model: LeWorldModel</h2>
+
+        <p>
+          The physical-prediction half is <strong>LeWorldModel (LeWM)</strong> — LeCun et al.
+          (<a href="https://arxiv.org/abs/2603.19312" target="_blank" rel="noopener">arXiv:2603.19312</a>,
+          2026), the first JEPA that trains <strong>end-to-end from pixels</strong> with a
+          <strong>single</strong> anti-collapse regularizer. Stated as equations rather than prose:
+        </p>
+
+        <p class="eq-label"><strong>Encoder + predictor</strong> — predict the next <em>embedding</em>, not the next pixels:</p>
+        <p>\[ z_t = f_\theta(x_t), \qquad \hat z_{t+1} = g_\phi\!\left(z_t,\, a_t\right) \]</p>
+
+        <p class="eq-label"><strong>Objective</strong> — two terms only (vs. ~6 in prior end-to-end JEPAs):</p>
+        <p>\[ \mathcal{L}(\theta,\phi) = \underbrace{\big\lVert\, g_\phi\!\big(f_\theta(x_t),a_t\big) - f_\theta(x_{t+1}) \,\big\rVert^2}_{\text{next-embedding prediction}} \;+\; \lambda\, \underbrace{\mathcal{R}_{\text{SIGReg}}\!\big(\{z\}\big)}_{\substack{z \,\sim\, \mathcal{N}(0,\mathbf{I}) \\ \text{prevents collapse}}} \]</p>
+
+        <p class="eq-note">
+          SIGReg (the Gaussian-latent regularizer) replaces EMA targets, stop-gradients and frozen
+          pretrained encoders. \(\approx\)15M params · 192-d tokens · single GPU · a few hours.
+        </p>
+
+        <p class="eq-label"><strong>Planning by imagination</strong> — roll actions out in latent space, keep the safe ones (Cross-Entropy Method; \(\sim\)48× faster than foundation-model world models):</p>
+        <p>\[ a^{\star}_{t:t+H} = \arg\min_{a_{t:t+H}} \; \mathbb{E}\!\left[\, \sum_{k=0}^{H} C\!\big(\hat z_{t+k}\big) \,\right] \]</p>
+
+        <p class="eq-label"><strong>Surprise \(=\) danger</strong> — calibrate on safe operation; the physical-danger score \(s_{\text{phys}}\) is the model's own prediction error (low likelihood under the learned latent):</p>
+        <p>\[ s_{\text{phys}}(t) = \big\lVert\, f_\theta(x_{t+1}) - g_\phi\!\big(f_\theta(x_t),a_t\big) \,\big\rVert^2 \;\uparrow \;\;\Longrightarrow\;\; \text{physically implausible} \]</p>
+
+        <figure class="post-figure">
+          <img src="images/vigie/vigie-futures.png" alt="LeWorldModel sampling N action-conditioned futures from the current observation, each scored SAFE / WATCH / ALERT with a probability">
+          <figcaption>
+            LeWM encodes the current observation, then rolls out several action-conditioned futures in latent
+            space and scores each — <span style="color:#3c8a1f">safe</span>,
+            <span style="color:#b9791a">watch</span>, <span style="color:#e5484d">alert</span>. Danger is
+            caught branches ahead of the live feed.
+          </figcaption>
+        </figure>
+
+        <h3>The generative half — imagine, then veto</h3>
+        <p>
+          LeWM reasons in latent space; for the demo's tangible “wow” we paired it with a
+          <em>generative</em> preview. From the current frame, a pretrained video diffusion model (Stable
+          Video Diffusion) <strong>imagines a short future clip</strong>, and we score each predicted frame
+          for danger with few-shot CLIP anchors (a handful of example “safe” vs “dangerous” frames). If an
+          imagined future looks dangerous, Vigie raises a preventive <strong>VETO</strong> — before the robot
+          has moved. The latent LeWM track is the fast, principled danger estimator; the diffusion track is
+          the human-legible picture of <em>what it thinks is about to happen</em>.
+        </p>
+
+        <figure class="post-figure-row">
+          <figure>
+            <video src="images/vigie/vigie-rollout-0.mp4" autoplay muted loop playsinline></video>
+            <figcaption>Latent rollout 01</figcaption>
+          </figure>
+          <figure>
+            <video src="images/vigie/vigie-rollout-1.mp4" autoplay muted loop playsinline></video>
+            <figcaption>Latent rollout 02</figcaption>
+          </figure>
+          <figure>
+            <video src="images/vigie/vigie-rollout-2.mp4" autoplay muted loop playsinline></video>
+            <figcaption>Latent rollout 03</figcaption>
+          </figure>
+        </figure>
+
+        <p>
+          Both world-model tracks run fully async as periodic “deep glances,” never blocking the
+          sub-100&nbsp;ms reflex loop. Even at ~1&nbsp;s per LeWM plan (and seconds per diffusion clip on a
+          GPU), layering them as a slow, holistic sanity check <em>above</em> the fast geometric rules —
+          rather than trying to force a per-frame world model — is what kept the live demo responsive while
+          still catching danger ahead of time.
+        </p>
+
+        <h2>Putting it together: the control room</h2>
+
+        <p>
+          We wrapped the whole stack in a single dashboard — the artifact we actually pitched. Two live
+          camera feeds (gripper + head cam), a frame-by-frame safety timeline, the decoded-future rollouts
+          coloured by predicted risk, a streaming safety log with per-decision rationales, and a system
+          status panel showing the current mode (<span style="color:#3c8a1f">RUNNING</span> /
+          <span style="color:#b9791a">REVIEW</span> / <span style="color:#e5484d">BLOCKED</span>) and risk
+          score. You can toggle the perception stack (segmentation, depth, detection) live and dial the
+          safety thresholds from the same UI.
+        </p>
+
+        <figure class="post-figure">
+          <video src="images/vigie/vigie-dashboard.mp4" autoplay muted loop playsinline controls></video>
+          <figcaption>
+            The Vigie control room: live feeds, the frame-by-frame safety timeline, decoded futures, and a
+            streaming safety log where every PAUSE / BLOCK decision carries its own plain-language rationale.
+          </figcaption>
+        </figure>
+
+        <h2>What I'd build next</h2>
+
+        <p>
+          A few honest limitations we'd tackle with more than a weekend. Distances are currently in
+          <em>pixels</em> (image space); a real rig would calibrate to centimetres with a known-size
+          reference or a depth camera. The perception model is off-the-shelf, so “stove” and “robot arm”
+          are proxied rather than natively detected — a model fine-tuned on kitchen and robot-arm classes is
+          the obvious upgrade. And the <code>recommended_action</code> field (<code>stop</code> /
+          <code>slow_down</code>) is the natural hook into a real kill-switch or robot-control integration,
+          closing the loop from <em>watching</em> to <em>intervening</em>.
+        </p>
+
+        <h2>The result</h2>
+
+        <p>
+          Thirty-six hours later, Vigie took the 1st Global Prize. What resonated with the judges wasn't any
+          single model — it was the framing: safety as an <em>external, measurable, predictive</em> layer
+          that treats the robot as a black box and still catches danger before it happens. That's the piece
+          the industry will need as learning-based robots leave the lab.
+        </p>
+
+        <figure class="post-figure">
+          <img src="images/vigie/vigie-win.jpg" alt="The Vigie team holding the 1st Global Winner check at the YC Paris × Unaite Hackathon (Paris Builds), 28 June 2026">
+          <figcaption>
+            The team with the “Paris Builds · 1st Global Winner” prize for Vigie — YC Paris × Unaite
+            Hackathon, 28 June 2026.
+          </figcaption>
+        </figure>
+
+        <hr>
+
+        <h3>References</h3>
+        <ul>
+          <li>
+            L. Maes, Q. Le Lidec, D. Scieur, Y. LeCun, R. Balestriero.
+            <a href="https://arxiv.org/abs/2603.19312" target="_blank" rel="noopener">
+              LeWorldModel: Stable End-to-End Joint-Embedding Predictive Architecture from Pixels</a>,
+            arXiv:2603.19312, 2026. (<a href="https://le-wm.github.io/" target="_blank" rel="noopener">project page</a>)
+          </li>
+        </ul>
+
+        <p style="color:var(--text-muted); font-size:0.88rem;">
+          Built with a great team over one very long weekend. Stack: Python, YOLOE &amp; Segment Anything,
+          MediaPipe, Claude vision (structured outputs), <strong>LeWorldModel</strong> and Stable Video
+          Diffusion, on OpenArm / LeRobot.
+        </p>
+
+      </div>
+    </article>
+  </main>
+
+  <!-- ===== Footer ===== -->
+  <footer class="site-footer">
+    &copy; 2026 Tristan Lecourtois &mdash;
+    Inspired by <a href="https://github.com/alshedivat/al-folio" target="_blank" rel="noopener">al-folio</a>
+    &mdash; Site last updated 2026-07-03
+  </footer>
+
+</body>
+</html>

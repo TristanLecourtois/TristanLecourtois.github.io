@@ -444,6 +444,216 @@ a:hover {
 .post-content a { color: var(--theme-color); }
 
 /* ==========================================================================
+   Blog — post listing (index)
+   ========================================================================== */
+.post-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+  margin-top: 0.5rem;
+}
+
+.post-list-item {
+  display: block;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.4rem 1.6rem;
+  background: var(--bg);
+  transition: box-shadow 0.2s, border-color 0.2s;
+  color: inherit;
+  text-decoration: none;
+}
+.post-list-item:hover {
+  box-shadow: var(--card-shadow-hover);
+  border-color: #c5c5c5;
+  text-decoration: none;
+  color: inherit;
+}
+
+.post-list-date {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  font-family: 'Roboto Mono', monospace;
+  display: block;
+  margin-bottom: 0.4rem;
+}
+
+.post-list-title {
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: var(--text-color);
+  line-height: 1.35;
+  margin-bottom: 0.4rem;
+}
+
+.post-list-excerpt {
+  font-size: 0.9rem;
+  color: #555;
+  line-height: 1.6;
+}
+
+.post-list-tag {
+  display: inline-block;
+  font-size: 0.72rem;
+  font-weight: 600;
+  font-family: 'Roboto Mono', monospace;
+  color: var(--theme-color);
+  background: #eef4fd;
+  padding: 0.12rem 0.5rem;
+  border-radius: 4px;
+  margin-left: 0.5rem;
+  vertical-align: middle;
+}
+
+/* ==========================================================================
+   Blog — media inside posts (figures, video, gif)
+   ========================================================================== */
+.post-back {
+  display: inline-block;
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  margin-bottom: 1.2rem;
+}
+.post-back:hover { color: var(--theme-color); }
+
+.post-figure {
+  margin: 2rem 0;
+}
+.post-figure img,
+.post-figure video {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  display: block;
+}
+.post-figure img,
+.post-figure video {
+  background: #fff;
+}
+.post-figure figcaption {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  text-align: center;
+  margin-top: 0.6rem;
+  line-height: 1.5;
+}
+
+.post-figure-row {
+  display: flex;
+  gap: 0.7rem;
+  margin: 2rem 0;
+}
+.post-figure-row figure { margin: 0; flex: 1; min-width: 0; }
+.post-figure-row video,
+.post-figure-row img {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  display: block;
+  background: #fff;
+}
+.post-figure-row figcaption {
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  text-align: center;
+  margin-top: 0.4rem;
+}
+
+.post-content h2 {
+  font-size: 1.35rem;
+  font-weight: 700;
+  margin: 2.4rem 0 0.9rem;
+  padding-bottom: 0.3rem;
+  border-bottom: 1px solid var(--border);
+}
+.post-content pre {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 0.9rem 1.1rem;
+  overflow-x: auto;
+  font-family: 'Roboto Mono', monospace;
+  font-size: 0.82rem;
+  line-height: 1.55;
+  margin: 1.4rem 0;
+}
+.post-content code {
+  font-family: 'Roboto Mono', monospace;
+  font-size: 0.85em;
+  background: var(--bg-secondary);
+  padding: 0.1rem 0.35rem;
+  border-radius: 4px;
+}
+.post-content pre code {
+  background: none;
+  padding: 0;
+  font-size: 1em;
+}
+.post-lead {
+  font-size: 1.05rem;
+  line-height: 1.75;
+  color: var(--text-color);
+}
+
+/* equations (MathJax) */
+.post-content .eq-label {
+  margin-bottom: 0.2rem;
+  font-size: 0.92rem;
+}
+.post-content .eq-note {
+  font-size: 0.84rem;
+  color: var(--text-muted);
+  margin-top: -0.4rem;
+}
+.post-content mjx-container[display="true"] {
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding: 0.2rem 0;
+  margin: 0.3rem 0 1.3rem;
+}
+.post-tldr {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--theme-color);
+  border-radius: 6px;
+  padding: 1.1rem 1.3rem;
+  margin: 2rem 0;
+}
+.post-tldr .tldr-label {
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  font-family: 'Roboto Mono', monospace;
+  color: var(--theme-color);
+  margin-bottom: 0.5rem;
+}
+.post-tldr ul {
+  margin: 0;
+  padding-left: 1.2rem;
+}
+.post-tldr li {
+  font-size: 0.9rem;
+  line-height: 1.6;
+  margin-bottom: 0.35rem;
+}
+.post-tldr li:last-child { margin-bottom: 0; }
+
+.post-award {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  background: #fff9e6;
+  border: 1px solid #f4d97a;
+  border-radius: 8px;
+  padding: 0.8rem 1.1rem;
+  font-size: 0.9rem;
+  margin: 1.4rem 0 2rem;
+}
+.post-award .trophy { font-size: 1.3rem; }
+
+/* ==========================================================================
    Footer
    ========================================================================== */
 .site-footer {
@@ -508,4 +718,5 @@ a:hover {
     height: auto;
   }
   .post-title { font-size: 1.5rem; }
+  .post-figure-row { flex-direction: column; }
 }
